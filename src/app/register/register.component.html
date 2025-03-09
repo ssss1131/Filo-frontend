@@ -1,0 +1,35 @@
+<div class="wrapper">
+  <div>
+    <h1 class="filo-title">
+      <span>Filo</span>
+      <img ngSrc="assets/images/filo-icon.png" width="80" height="80" alt="filo-icon">
+    </h1>
+  </div>
+  <div class="register-container">
+    <h1>Register</h1>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username">
+        <app-validation-errors [control]="registerForm.get('username')" fieldName="Username"></app-validation-errors>
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password">
+        <app-validation-errors [control]="registerForm.get('password')" fieldName="Password"></app-validation-errors>
+      </div>
+      <div>
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword">
+        <app-validation-errors [control]="registerForm.get('confirmPassword')"
+                               fieldName="Confirm Password"></app-validation-errors>
+      </div>
+      <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
+        <small>Passwords do not match.</small>
+      </div>
+      <button type="submit" [disabled]="registerForm.invalid" class="register-button">Register</button>
+    </form>
+    <p class="login-link">Already have account? <a routerLink="/auth/login">Login here</a></p>
+  </div>
+</div>

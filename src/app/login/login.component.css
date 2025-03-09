@@ -1,0 +1,114 @@
+
+.container {
+  display: flex;
+  width: 100%; /*делает контейнер относительно экрана*/
+  max-width: 1200px; /*чтобы контейнер не сильно растянулся в больших экранах*/
+  justify-content: space-between;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column; /*делает элементы друг под другом*/
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  font-size: 25px;
+  flex:1;
+  margin-bottom: 200px;
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /*вертикаль*/
+  align-items: center; /*горизонталь*/
+  text-align: center;
+  flex:1;
+  margin-bottom: 80px;
+}
+
+.login-container {
+  background: white;
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /*{горизонтальное смещение тени(если 5 то вправо если -5 то влево)}     {вертикальное(4px вниз -4px вверх}     {размытие тени} rgba{четвертое число прозрачность показывает}*/
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #dddfe2;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.login-button {
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #0866ff;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  transition: 0.3s; /*анимация когда наводишь*/
+}
+
+button:hover{
+  background-color: #1877f2;
+}
+
+.line{
+  border-bottom: 1px solid #dadde1;
+  margin: 10px 0;
+}
+
+.account-button{
+  display: inline-block;
+  padding:15px;
+  border: none;
+  border-radius: 7px;
+  background-color: #42b72a;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+}
+
+.account-button:hover{
+  background-color: #36a420;
+}
+
+a{
+  text-decoration: none;
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: #ff0000;
+  background-color: #ffe6e6;
+}
+
+button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+button[type="submit"]:enabled {
+  background-color: #0866ff;
+  cursor: pointer;
+}
+

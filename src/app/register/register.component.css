@@ -1,0 +1,111 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: center;
+  align-items: center;
+}
+
+.filo-title {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  font-size: 50px;
+  padding-bottom: 20px;
+}
+
+.filo-title img {
+  vertical-align: middle;
+}
+
+.register-container{
+  background-color: white;
+  width: 400px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+h1{
+  padding-top: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #dddfe2;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+
+.register-button {
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #0866ff;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  transition: 0.3s; /*анимация когда наводишь*/
+}
+
+button:hover {
+  background-color: #1877f2;
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+small {
+  display: block;
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: #ff0000;
+  background-color: #ffe6e6;
+}
+
+button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+button[type="submit"]:enabled {
+  background-color: #0866ff;
+  cursor: pointer;
+}
+
+.login-link{
+  padding-bottom: 10px;
+}
+
+a{
+  text-decoration: none;
+  color: #0866ff;
+}
+
+a:hover{
+  color:  #1877f2;
+}

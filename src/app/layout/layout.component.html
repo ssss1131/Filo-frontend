@@ -1,0 +1,16 @@
+<header>
+  <div class="left-section">
+    <img src="../../assets/images/filo-icon.ico" alt="filo-icon">
+    <h4>Filo</h4>
+  </div>
+  <div class="right-section" *ngIf="user$ | async as user">
+    <strong>{{ user.username }}</strong>
+    <form action="/auth/logout" method="post">
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
