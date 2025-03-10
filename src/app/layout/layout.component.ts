@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {Observable} from 'rxjs';
-import {User} from '../models/user';
-import {AuthService} from '../services/auth.service';
+import {User} from '../core/models/user';
+import {AuthService} from '../core/services/auth.service';
 import {AsyncPipe, NgIf} from '@angular/common';
 
 @Component({

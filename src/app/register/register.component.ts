@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../core/services/auth.service';
 import {Router, RouterLink} from '@angular/router';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {passwordMatchValidator} from '../validators/password-match.validator';
+import {passwordMatchValidator} from '../core/validators/password-match.validator';
 import {ValidationErrorsComponent} from '../validation-errors/validation-errors.component';
 
 @Component({
