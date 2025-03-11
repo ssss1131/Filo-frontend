@@ -1,13 +1,12 @@
 <header>
-  <div class="left-section">
-    <img src="../../assets/images/filo-icon.ico" alt="filo-icon">
-    <h4>Filo</h4>
+  <div class="left-section" (click)="goToHome()">
+    <img src="assets/images/filo-icon.ico" alt="Filo Icon" height="50" width="50">
+    <h2>Filo</h2>
   </div>
+
   <div class="right-section" *ngIf="user$ | async as user">
     <strong>{{ user.username }}</strong>
-    <form action="/auth/logout" method="post">
-      <button type="submit">Logout</button>
-    </form>
+    <button class="logout-button" (click)="logout()">Logout</button>
   </div>
 </header>
 

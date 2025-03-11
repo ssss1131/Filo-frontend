@@ -39,8 +39,14 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe({
-        next: user => {
-          this.router.navigate(['/home']);
+        next: () => {
+          this.authService.login({
+            username: this.registerForm.value['username'],
+            password: this.registerForm.value['password']
+          }).subscribe( () => {
+              this.router.navigate(['/home']);
+          }
+          );
         },
         error: err => {
           if (err.status === 400) {
