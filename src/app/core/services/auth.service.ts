@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import {BehaviorSubject, catchError, Observable, of, tap} from 'rxjs';
 import {User} from '../models/user';
 import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,17 @@ export class AuthService {
   fetchCurrentUser(): Observable<User> {
     return this.http.get<User>('/api/user/me', {withCredentials: true}).pipe(
       tap(user => this.userSubject.next(user))
+    );
+  }
+
+  checkAuth(): Observable<boolean> {
+    return this.http.get<User>('/api/user/me', { withCredentials: true }).pipe(
+      tap(user => this.userSubject.next(user)),
+      map(() => true),
+      catchError(err => {
+        this.userSubject.next(null);
+        return of(false);
+      })
     );
   }
 

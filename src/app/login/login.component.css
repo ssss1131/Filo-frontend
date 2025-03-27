@@ -1,20 +1,28 @@
-
 .container {
   display: flex;
-  width: 100%; /*делает контейнер относительно экрана*/
-  max-width: 1200px; /*чтобы контейнер не сильно растянулся в больших экранах*/
-  justify-content: space-between;
+  gap: 100px;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 .left-section {
   display: flex;
-  flex-direction: column; /*делает элементы друг под другом*/
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
   font-size: 25px;
-  flex:1;
   margin-bottom: 200px;
+}
+
+.left-section h1{
+  margin-bottom: -7px;
+}
+
+.under-icon-info{
+  margin-left: 20px;
 }
 
 .right-section {
@@ -23,8 +31,7 @@
   justify-content: center; /*вертикаль*/
   align-items: center; /*горизонталь*/
   text-align: center;
-  flex:1;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 
 .login-container {
@@ -43,7 +50,7 @@ form {
 }
 
 input {
-  width: 100%;
+  width: 90%;
   padding: 15px;
   border: 1px solid #dddfe2;
   border-radius: 12px;

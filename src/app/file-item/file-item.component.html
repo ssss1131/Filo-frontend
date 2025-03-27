@@ -1,0 +1,23 @@
+<div class="file-list-row"
+     (click)="handleClick(file, $event)"
+     (dblclick)="handleDblClick(file)">
+  <span>
+  <i *ngIf="file.type === 'FILE'" class="fa-regular fa-file fa-xl"></i>
+  <i *ngIf="file.type === 'FOLDER'" class="fa-regular fa-folder fa-xl"></i>
+  </span>
+  <span>{{ file.name }}</span>
+  <span>{{ file.type !== 'FOLDER' ? (file.modifiedData | date: 'dd MMMM yyyy') : '' }}</span>
+  <span>{{ file.size !== 0 ? file.size : '-' }}</span>
+  <button class="file-actions" (click)="toggleFileActions($event)">
+    <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
+  </button>
+
+  <div class="file-actions-menu" *ngIf="isFileActionsOpen" (clickOutside)="closeFileActions()">
+    <div class="menu-item" (click)="download()"><i class="fa-solid fa-download"></i>Download</div>
+    <div class="menu-separator"></div>
+    <div class="menu-item" (click)="move()"><i class="fa-solid fa-route"></i>Move</div>
+    <div class="menu-item" (click)="rename()"><i class="fa-regular fa-pen-to-square"></i>Rename</div>
+    <div class="menu-separator"></div>
+    <div class="menu-item delete" (click)="delete()"><i class="fa-solid fa-trash"></i>Delete</div>
+  </div>
+</div>

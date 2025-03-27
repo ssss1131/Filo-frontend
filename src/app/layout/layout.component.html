@@ -1,15 +1,67 @@
-<header>
-  <div class="left-section" (click)="goToHome()">
-    <img src="assets/images/filo-icon.ico" alt="Filo Icon" height="50" width="50">
-    <h2>Filo</h2>
-  </div>
+<div class="container">
+  <header>
+    <div class="left-section" (click)="goToHome()">
+      <img ngSrc="assets/images/filo-icon.ico" alt="Filo Icon" height="50" width="50">
+      <h2>Filo</h2>
+    </div>
+    <div class="header-actions">
 
-  <div class="right-section" *ngIf="user$ | async as user">
-    <strong>{{ user.username }}</strong>
-    <button class="logout-button" (click)="logout()">Logout</button>
-  </div>
-</header>
+      <div class="middle-section">
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="search()"
+          placeholder="Search your files"
+          class="search-bar">
+      </div>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
+      <div class="right-section" *ngIf="user$ | async as user">
+        <strong>{{ user.username }}</strong>
+        <button class="logout-button" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <button class="new-button" (click)="toggleNewMenu()">
+      <i class="fa-solid fa-plus fa-xl"></i>
+      <span class="new-text"> New</span>
+    </button>
+
+
+    <div class="new-menu-wrapper">
+      <div class="new-menu" *ngIf="isNewMenuOpen" (clickOutside)="closeMenu()">
+        <button (click)="clickCreateFolder()"><i class="fa-regular fa-folder fa-lg" style="color: #74C0FC;"></i> New Folder
+        </button>
+        <div class="line"></div>
+        <button (click)="clickUploadFile()"><i class="fa-regular fa-file fa-lg" style="color: #63E6BE;"></i> File Upload
+        </button>
+        <button (click)="clickUploadFolder()"><i class="fa-regular fa-folder fa-lg" style="color: #63E6BE;"></i> Folder Upload
+        </button>
+      </div>
+      <input #fileInput type="file" hidden multiple (change)="onFilesSelected($event)">
+      <input #folderInput type="file" hidden multiple webkitdirectory (change)="handleFolderUpload($event)">
+    </div>
+
+
+    <div class="storage-info">
+      <div class="progress-bar">
+        <div class="progress" [style.width]="storageUsedPercent + '%'"></div>
+      </div>
+      <p>{{ usedStorage }}MB of {{ totalStorage }}MB used</p>
+    </div>
+  </aside>
+
+  <main class="content-wrapper">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+
+<app-modal *ngIf="isCreateFolderOpen" (close)="closeModal()" title="New Folder">
+  <input #folderInput type="text" placeholder="Folder name" class="modal-input">
+  <div class="modal-button">
+    <button class="cancel-button" (click)="closeModal()">Cancel</button>
+    <button (click)="handleCreateFolder(folderInput.value)">Create</button>
+  </div>
+</app-modal>

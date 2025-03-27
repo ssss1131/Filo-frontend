@@ -1,0 +1,11 @@
+<div class="modal-overlay" (clickOutside)="closeModal()">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>{{ title }}</h2>
+      <button class="close-button" (click)="closeModal()">✖</button>
+    </div>
+    <div class="modal-body" [ngClass]="contentClass">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
