@@ -32,69 +32,8 @@ export class HomeComponent implements OnInit {
   }
 
   loadFiles(): void {
-    this.resourceService.getAllObjects(this.currentPath).subscribe(files => {
+    this.resourceService.getResources(this.currentPath).subscribe(files => {
       this.files = files;
     });
-    // this.files = [
-    //   {
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },
-    //   {
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },{
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },{
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },{
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },
-    //   {
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },{
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },
-    //   {
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },
-    //   {
-    //     path: "report.pdf",
-    //     name: "report.pdf",
-    //     size: 1048576,
-    //     type: "FILE",
-    //     date: new Date("2024-03-13T14:30:00.000Z")
-    //   },
-    // ];
   }
 }

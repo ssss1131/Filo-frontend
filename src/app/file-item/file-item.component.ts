@@ -55,7 +55,7 @@ export class FileItemComponent {
   download(): void {
     console.log('Download object:', this.file);
     this.closeFileActions();
-    this.resourceService.downloadObject(this.file.path);
+    this.resourceService.downloadResource(this.file.path);
 
   }
 
@@ -72,5 +72,6 @@ export class FileItemComponent {
   delete(): void {
     console.log('Delete file:', this.file);
     this.closeFileActions();
+    this.resourceService.deleteResource(this.file.path);
   }
 }
