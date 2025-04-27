@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {ResourceService} from '../core/services/resource.service';
-import {StoredFile} from '../core/models/stored-file';
+import {Resource} from '../core/models/resource';
 import {FileItemComponent} from '../file-item/file-item.component';
 
 @Component({
@@ -15,7 +15,7 @@ import {FileItemComponent} from '../file-item/file-item.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  files: StoredFile[] = [];
+  files: Resource[] = [];
   currentPath: string = '';
 
   constructor(

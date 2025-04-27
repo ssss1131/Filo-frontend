@@ -21,3 +21,34 @@
     <div class="menu-item delete" (click)="delete()"><i class="fa-solid fa-trash"></i>Delete</div>
   </div>
 </div>
+
+
+<app-modal *ngIf="isRenameResourceOpen" (close)="closeModal()" title="Rename">
+  <input #folderInput type="text"
+         [ngModel]="file.type == 'FOLDER' ? file.name :file.name.substring(0, file.name.lastIndexOf('.'))"
+         class="modal-input">
+  <div class="modal-button">
+    <button class="cancel-button" (click)="closeModal()">Cancel</button>
+    <button (click)="handleRenameResource(folderInput.value)">Rename</button>
+  </div>
+</app-modal>
+
+<app-modal *ngIf="isMoveResourceOpen" (close)="closeModal()" title="Move {{this.file.name}}">
+  <div class="current-location">
+    <span>Current location: {{ this.file.path | parentPath }}</span>
+  </div>
+  <div class="folder-list">
+    <ul>
+      <li *ngFor="let folder of availableFolders" (click)="selectFolder(folder)"
+          [class.selected]="folder.path === selectedFolderPath">
+        <i class="fa-regular fa-folder fa-lg"></i>
+        <span>{{ folder.path }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="modal-button">
+    <button class="cancel-button" (click)="closeModal()">Cancel</button>
+    <button class="move-button" (click)="confirmMove()" [disabled]="!selectedFolderPath">Move</button>
+  </div>
+</app-modal>

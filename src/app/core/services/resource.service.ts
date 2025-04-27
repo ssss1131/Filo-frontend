@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {StoredFile} from '../models/stored-file';
+import {Resource} from '../models/resource';
 import {map} from 'rxjs/operators';
-import {API_URLS, FOLDER_DELIMITER} from '../../shared/constants/api-constants';
+import {API_URLS} from '../../shared/constants/api-constants';
 import {saveAs} from 'file-saver';
 
 @Injectable({
@@ -12,14 +12,13 @@ import {saveAs} from 'file-saver';
 export class ResourceService {
 
   private apiUrl = API_URLS.RESOURCE;
-  private folderDelimiter = FOLDER_DELIMITER;
 
   constructor(private http: HttpClient) {
   }
 
-  getResources(path: string): Observable<StoredFile[]> {
+  getResources(path: string): Observable<Resource[]> {
     const params = new HttpParams().set('path', path);
-    return this.http.get<StoredFile[]>(this.apiUrl, {params}).pipe(
+    return this.http.get<Resource[]>(this.apiUrl, {params}).pipe(
       map(files =>
         files.map(file => ({
           ...file,
@@ -33,12 +32,12 @@ export class ResourceService {
     const formData = new FormData();
     files.forEach(file => formData.append('files', file));
     const params = new HttpParams().set('path', path);
-    this.http.post<StoredFile[]>(this.apiUrl, formData, {params: params}).subscribe();
+    this.http.post<Resource[]>(this.apiUrl, formData, {params: params}).subscribe();
   }
 
   downloadResource(path: string): void {
     const params = new HttpParams().set('path', path);
-    this.http.get(this.apiUrl + FOLDER_DELIMITER + 'download', {
+    this.http.get(this.apiUrl + '/download', {
       params: params,
       responseType: 'blob',
       observe: 'response'
@@ -50,7 +49,7 @@ export class ResourceService {
           let matches = /filename\*=UTF-8''(.+)/.exec(disposition);
           if (matches && matches[1]) {
             try {
-              name = decodeURIComponent(matches[1]);
+              name = decodeURIComponent(matches[1]).replace(/\+/g, ' ');
             } catch (e) {
               name = matches[1];
             }
@@ -72,9 +71,13 @@ export class ResourceService {
     });
   }
 
-  deleteResource(path: string) : void{
+  deleteResource(path: string): void {
     let param = new HttpParams().set("path", path);
     this.http.delete(this.apiUrl, {params: param}).subscribe();
   }
 
+  move(from: string, to: string): void {
+    let param = new HttpParams().set("from", from).set("to", to);
+    this.http.get(this.apiUrl + "/move", {params: param}).subscribe();
+  }
 }
