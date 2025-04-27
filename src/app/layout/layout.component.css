@@ -164,57 +164,6 @@ header {
   margin: 2px;
 }
 
-
-.modal-input {
-  width: 90%;
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid #d0d0d0;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.modal-input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-}
-
-.modal-button {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.modal-button button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.modal-button button:hover {
-  background: #0056b3;
-}
-
-.modal-button .cancel-button {
-  background: #e0e0e0;
-  color: #333;
-}
-
-.modal-button .cancel-button:hover {
-  background: #c0c0c0;
-}
-
-
-.modal-input:hover{
-  background-color: #ddd;
-}
-
 .storage-info {
   margin-top: 50px;
   color: #80809F;
