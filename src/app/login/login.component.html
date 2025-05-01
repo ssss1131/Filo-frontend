@@ -7,6 +7,8 @@
     <div class="login-container">
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input type="text" placeholder="Tenant" formControlName="tenant">
+        <app-validation-errors [control]="loginForm.get('tenant')" fieldName="tenant"></app-validation-errors>
         <input type="text" placeholder="Email or username" formControlName="username">
         <app-validation-errors [control]="loginForm.get('username')" fieldName="username"></app-validation-errors>
         <input type="password" placeholder="Password" formControlName="password">

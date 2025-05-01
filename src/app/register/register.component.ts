@@ -6,6 +6,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {passwordMatchValidator} from '../core/validators/password-match.validator';
 import {ValidationErrorsComponent} from '../validation-errors/validation-errors.component';
 import {NotificationService} from '../core/services/notification.service';
+import {RegisterTenantPayload} from '../core/services/register-tenant-payload';
 
 @Component({
   selector: 'app-register',
@@ -22,44 +23,52 @@ import {NotificationService} from '../core/services/notification.service';
 export class RegisterComponent {
   registerForm: FormGroup;
 
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private notifyService: NotificationService
+    private notify: NotificationService
   ) {
     this.registerForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      confirmPassword: ['', [Validators.required]],
-    }, {validators: passwordMatchValidator});
-
+      displayName: ['', [Validators.required, Validators.minLength(3)]],
+      adminUsername: ['', [Validators.required, Validators.minLength(3)]],
+      adminPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validators: passwordMatchValidator });
   }
 
   onSubmit() {
-    if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value).subscribe({
-        next: () => {
-          this.notifyService.success("You have successfully registered!")
-          this.authService.login({
-            username: this.registerForm.value['username'],
-            password: this.registerForm.value['password']
-          }).subscribe( () => {
-              this.router.navigate(['/home']);
-          }
-          );
-        },
-        error: err => {
-          if (err.status === 400) {
-            this.notifyService.error('Invalid data. Please check your inputs.');
-          } else if (err.status === 409) {
-            this.notifyService.error('Username is already taken.');
-          } else {
-            this.notifyService.error('An unexpected error occurred. Please try again later.');
-          }
+    if (this.registerForm.invalid) return;
+
+    const { displayName, adminUsername, adminPassword } = this.registerForm.value;
+
+    const slug = displayName
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9\-]/g, '')
+      .replace(/\-+/g, '-');
+
+    const payload: RegisterTenantPayload = {
+      slug,
+      displayName,
+      adminUsername,
+      adminPassword
+    };
+
+    this.authService.registerTenant(payload).subscribe({
+      next: () => {
+        this.notify.success(`Company “${displayName}” registered!`);
+        this.router.navigate(['/auth/login']);
+      },
+      error: err => {
+        if (err.status === 409) {
+          this.notify.error('Slug or username already taken.');
+        } else {
+          this.notify.error('Unexpected error. Try later.');
         }
-      });
-    }
+      }
+    });
   }
+
 }

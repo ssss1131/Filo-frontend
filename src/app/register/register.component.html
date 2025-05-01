@@ -6,29 +6,55 @@
     </h1>
   </div>
   <div class="register-container">
-    <h1>Register</h1>
+    <h1>Register Company</h1>
+
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
-        <label for="username">Username</label>
-        <input id="username" type="text" formControlName="username">
-        <app-validation-errors [control]="registerForm.get('username')" fieldName="Username"></app-validation-errors>
+        <label for="displayName">Company Name</label>
+        <input id="displayName" type="text" formControlName="displayName">
+        <app-validation-errors
+          [control]="registerForm.get('displayName')"
+          fieldName="Company Name"></app-validation-errors>
       </div>
+
+      <h2>Administrator Account</h2>
+
       <div>
-        <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password">
-        <app-validation-errors [control]="registerForm.get('password')" fieldName="Password"></app-validation-errors>
+        <label for="adminUsername">Admin Username</label>
+        <input id="adminUsername" type="text" formControlName="adminUsername">
+        <app-validation-errors
+          [control]="registerForm.get('adminUsername')"
+          fieldName="Admin Username"></app-validation-errors>
       </div>
+
+      <div>
+        <label for="adminPassword">Admin Password</label>
+        <input id="adminPassword" type="password" formControlName="adminPassword">
+        <app-validation-errors
+          [control]="registerForm.get('adminPassword')"
+          fieldName="Admin Password"></app-validation-errors>
+      </div>
+
       <div>
         <label for="confirmPassword">Confirm Password</label>
         <input id="confirmPassword" type="password" formControlName="confirmPassword">
-        <app-validation-errors [control]="registerForm.get('confirmPassword')"
-                               fieldName="Confirm Password"></app-validation-errors>
+        <app-validation-errors
+          [control]="registerForm.get('confirmPassword')"
+          fieldName="Confirm Password"></app-validation-errors>
       </div>
+
       <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
-        <small>Passwords do not match.</small>
+        <small class="error-message">Passwords do not match.</small>
       </div>
-      <button type="submit" [disabled]="registerForm.invalid" class="register-button">Register</button>
+
+      <button type="submit" [disabled]="registerForm.invalid" class="register-button">
+        Register Company
+      </button>
     </form>
-    <p class="login-link">Already have account? <a routerLink="/auth/login">Login here</a></p>
+
+    <p>
+      Already have account? <a routerLink="/auth/login">Login here</a>
+    </p>
   </div>
 </div>
+
