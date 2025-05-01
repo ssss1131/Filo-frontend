@@ -5,6 +5,7 @@ import {Router, RouterLink} from '@angular/router';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {passwordMatchValidator} from '../core/validators/password-match.validator';
 import {ValidationErrorsComponent} from '../validation-errors/validation-errors.component';
+import {NotificationService} from '../core/services/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -20,13 +21,13 @@ import {ValidationErrorsComponent} from '../validation-errors/validation-errors.
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  errorMessage: string = '';
 
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notifyService: NotificationService
   ) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -40,6 +41,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe({
         next: () => {
+          this.notifyService.success("You have successfully registered!")
           this.authService.login({
             username: this.registerForm.value['username'],
             password: this.registerForm.value['password']
@@ -50,11 +52,11 @@ export class RegisterComponent {
         },
         error: err => {
           if (err.status === 400) {
-            this.errorMessage = 'Invalid data. Please check your inputs.';
+            this.notifyService.error('Invalid data. Please check your inputs.');
           } else if (err.status === 409) {
-            this.errorMessage = 'Username is already taken.';
+            this.notifyService.error('Username is already taken.');
           } else {
-            this.errorMessage = 'An unexpected error occurred. Please try again later.';
+            this.notifyService.error('An unexpected error occurred. Please try again later.');
           }
         }
       });

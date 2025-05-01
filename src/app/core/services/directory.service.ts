@@ -16,9 +16,9 @@ export class DirectoryService {
   constructor(private http: HttpClient) {
   }
 
-  createFolder(path: string, name: string): void {
+  createFolder(path: string, name: string): Observable<void> {
     const params = new HttpParams().set('path', path + name + this.folderDelimiter);
-    this.http.post<void>(this.apiUrl, {}, {params: params}).subscribe();
+    return this.http.post<void>(this.apiUrl, {}, {params: params});
   }
 
   getAvailableFolders(path: string): Observable<FolderInfo[]> {

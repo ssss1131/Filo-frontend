@@ -28,11 +28,11 @@ export class ResourceService {
     );
   }
 
-  uploadFilesToServer(files: File[], path: string): void {
+  uploadFilesToServer(files: File[], path: string): Observable<Resource[]> {
     const formData = new FormData();
     files.forEach(file => formData.append('files', file));
     const params = new HttpParams().set('path', path);
-    this.http.post<Resource[]>(this.apiUrl, formData, {params: params}).subscribe();
+    return this.http.post<Resource[]>(this.apiUrl, formData, {params: params});
   }
 
   downloadResource(path: string): void {

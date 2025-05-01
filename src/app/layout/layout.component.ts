@@ -9,6 +9,8 @@ import {AsyncPipe, CommonModule, NgOptimizedImage} from '@angular/common';
 import {ClickOutsideDirective} from '../core/directive/click-outside.directive';
 import {DirectoryService} from '../core/services/directory.service';
 import {ModalComponent} from '../shared/modal/modal.component';
+import {NotificationService} from '../core/services/notification.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-layout',
@@ -33,7 +35,8 @@ export class LayoutComponent {
     private route: ActivatedRoute,
     private authService: AuthService,
     private resourceService: ResourceService,
-    private directoryService: DirectoryService
+    private directoryService: DirectoryService,
+    private notifyService: NotificationService
   ) {
     this.user$ = this.authService.user$;
     this.route.queryParams.subscribe(params => {
@@ -76,23 +79,64 @@ export class LayoutComponent {
 
   handleCreateFolder(name: string) {
     if (name.trim()) {
-      this.directoryService.createFolder(this.path, name);
+      this.directoryService.createFolder(this.path, name).subscribe({
+        next: () => this.notifyService.success("Folder created successfully!"),
+        error: (err: HttpErrorResponse) => {
+          switch (err.status) {
+            case 409:
+              this.notifyService.error("Folder with name '" + name + "' already exists!");
+              break;
+            case 500:
+              this.notifyService.error("Server error, please try again later");
+              break;
+            default:
+              this.notifyService.error("Failed to upload files");
+          }
+        }
+      });
       this.isCreateFolderOpen = false;
     }
   }
+
   onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const files = input.files;
-    if (files) {
-      this.resourceService.uploadFilesToServer(Array.from(files), this.path);
-    }
+    if (!files) return;
+
+    this.resourceService.uploadFilesToServer(Array.from(files), this.path)
+      .subscribe({
+        next: () => this.notifyService.success("Files uploaded successfully!"),
+        error: (err: HttpErrorResponse) => {
+          switch (err.status) {
+            case 409:
+              this.notifyService.error(err.message);
+              break;
+            case 500:
+              this.notifyService.error("Server error, please try again later");
+              break;
+            default:
+              this.notifyService.error("Failed to upload files");
+          }
+        }
+      });
   }
 
 
   handleFolderUpload(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files?.length) {
-      this.resourceService.uploadFilesToServer(Array.from(input.files), this.path);
+      this.resourceService.uploadFilesToServer(Array.from(input.files), this.path).subscribe({
+        next: () => this.notifyService.success("Folders uploaded successfully!"),
+        error: (err: HttpErrorResponse) => {
+          switch (err.status) {
+            case 500:
+              this.notifyService.error("Server error, please try again later");
+              break;
+            default:
+              this.notifyService.error("Failed to upload files");
+          }
+        }
+      });
       input.value = '';
     }
   }

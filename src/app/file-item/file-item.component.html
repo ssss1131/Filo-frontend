@@ -7,7 +7,7 @@
   </span>
   <span>{{ file.name }}</span>
   <span>{{ file.type !== 'FOLDER' ? (file.modifiedData | date: 'dd MMMM yyyy') : '' }}</span>
-  <span>{{ file.size !== 0 ? file.size : '-' }}</span>
+  <span>{{ file.size ? (file.size | filesize) : '-' }}</span>
   <button class="file-actions" (click)="toggleFileActions($event)">
     <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
   </button>

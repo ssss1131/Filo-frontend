@@ -10,6 +10,7 @@ import {DirectoryService} from '../core/services/directory.service';
 import {FolderInfo} from '../core/models/folderInfo';
 import {ParentPathPipe} from '../shared/pipes/parent-path.pipe';
 import {FOLDER_DELIMITER} from '../shared/constants/api-constants';
+import {FileSizePipe} from '../shared/pipes/file-size.pipe';
 
 @Component({
   selector: 'app-file-item',
@@ -19,7 +20,8 @@ import {FOLDER_DELIMITER} from '../shared/constants/api-constants';
     ClickOutsideDirective,
     ModalComponent,
     FormsModule,
-    ParentPathPipe
+    ParentPathPipe,
+    FileSizePipe
   ],
   styleUrls: ['./file-item.component.css']
 })
