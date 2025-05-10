@@ -99,6 +99,9 @@ export class LayoutComponent {
         next: () => this.notifyService.success("Folder '" + name + "' created successfully!"),
         error: (err: HttpErrorResponse) => {
           switch (err.status) {
+            case 400:
+              this.notifyService.error("Please name folder in valid format");
+              break;
             case 409:
               this.notifyService.error("Folder with name '" + name + "' already exists!");
               break;
