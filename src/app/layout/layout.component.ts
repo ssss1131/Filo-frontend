@@ -1,8 +1,7 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
-import {first, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {User} from '../core/models/user';
-import {AuthService} from '../core/services/auth.service';
 import {FormsModule} from '@angular/forms';
 import {ResourceService} from '../core/services/resource.service';
 import {AsyncPipe, CommonModule, NgOptimizedImage} from '@angular/common';
@@ -11,20 +10,25 @@ import {DirectoryService} from '../core/services/directory.service';
 import {ModalComponent} from '../shared/modal/modal.component';
 import {NotificationService} from '../core/services/notification.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {UserService} from '../core/services/user.service';
+import {UserQuota} from '../core/models/user-quota';
+import {map} from 'rxjs/operators';
+import {FileSizePipe} from '../shared/pipes/file-size.pipe';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
-  imports: [FormsModule, RouterOutlet, AsyncPipe, CommonModule, ClickOutsideDirective, ModalComponent, NgOptimizedImage]
+  imports: [FormsModule, RouterOutlet, AsyncPipe, CommonModule, ClickOutsideDirective, ModalComponent, NgOptimizedImage, FileSizePipe]
 })
 export class LayoutComponent {
+
   isNewMenuOpen = false;
   isCreateFolderOpen = false;
-  usedStorage = 100;
-  totalStorage = 500;
   searchQuery: string = '';
   user$: Observable<User | null>;
+  quota$: Observable<UserQuota | null>;
+  storageUsedPercent$: Observable<number>;
   path: string = '';
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -33,12 +37,24 @@ export class LayoutComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService,
+    private userService: UserService,
     private resourceService: ResourceService,
     private directoryService: DirectoryService,
     private notifyService: NotificationService
   ) {
-    this.user$ = this.authService.user$;
+    this.userService.loadQuota();
+    this.user$ = this.userService.user$;
+    this.quota$ = this.userService.quota$;
+
+    this.storageUsedPercent$ = this.quota$.pipe(
+      map(quota => {
+        if (!quota || quota.quotaBytes === 0) {
+          return 0;
+        }
+        return (Number(quota.usedBytes) / Number(quota.quotaBytes)) * 100;
+      })
+    );
+
     this.route.queryParams.subscribe(params => {
       this.path = params['path'] || '';
     });
@@ -49,7 +65,7 @@ export class LayoutComponent {
   }
 
   logout() {
-    this.authService.logout().subscribe(() => this.router.navigate(['/auth/login']));
+    this.userService.logout().subscribe(() => this.router.navigate(['/auth/login']));
   }
 
   search() {
@@ -80,7 +96,7 @@ export class LayoutComponent {
   handleCreateFolder(name: string) {
     if (name.trim()) {
       this.directoryService.createFolder(this.path, name).subscribe({
-        next: () => this.notifyService.success("Folder created successfully!"),
+        next: () => this.notifyService.success("Folder '" + name + "' created successfully!"),
         error: (err: HttpErrorResponse) => {
           switch (err.status) {
             case 409:
@@ -109,13 +125,19 @@ export class LayoutComponent {
         error: (err: HttpErrorResponse) => {
           switch (err.status) {
             case 409:
-              this.notifyService.error(err.message);
+              this.notifyService.error("File with such name already exists");
+              break;
+            case 413:
+              this.notifyService.error("Upload failed: you have exceeded your 500 MB storage quota.");
               break;
             case 500:
               this.notifyService.error("Server error, please try again later");
               break;
             default:
-              this.notifyService.error("Failed to upload files");
+              this.notifyService.error("" +
+                "Failed to upload files " +
+                "This usually happens when a file exceeds the maximum allowed size (500 MB)."
+              );
           }
         }
       });
@@ -129,20 +151,25 @@ export class LayoutComponent {
         next: () => this.notifyService.success("Folders uploaded successfully!"),
         error: (err: HttpErrorResponse) => {
           switch (err.status) {
+            case 409:
+              this.notifyService.error("Folder with such name already exists");
+              break;
+            case 413:
+              this.notifyService.info("Upload failed: you have exceeded your 500 MB storage quota.");
+              break;
             case 500:
               this.notifyService.error("Server error, please try again later");
               break;
             default:
-              this.notifyService.error("Failed to upload files");
+              this.notifyService.error("" +
+                "Failed to upload folder " +
+                "This usually happens when a folder exceeds the maximum allowed size (500 MB)."
+              );
           }
         }
       });
       input.value = '';
     }
-  }
-
-  get storageUsedPercent(): number {
-    return (this.usedStorage / this.totalStorage) * 100;
   }
 
   toggleNewMenu() {

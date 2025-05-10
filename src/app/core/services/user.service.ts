@@ -3,17 +3,25 @@ import {BehaviorSubject, catchError, Observable, of, tap} from 'rxjs';
 import {User} from '../models/user';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {UserQuota} from '../models/user-quota';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class UserService {
 
   private userSubject = new BehaviorSubject<User | null>(null);
+  private quotaSubject = new BehaviorSubject<UserQuota | null>(null);
   user$ = this.userSubject.asObservable();
+  quota$ = this.quotaSubject.asObservable();
 
 
   constructor(private http: HttpClient) {
+  }
+
+  loadQuota() {
+    this.http.get<UserQuota>('/api/user/quota')
+      .subscribe(q => this.quotaSubject.next(q));
   }
 
   fetchCurrentUser(): Observable<User> {

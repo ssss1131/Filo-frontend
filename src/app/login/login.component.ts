@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../core/services/auth.service';
 import {Router, RouterLink} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ValidationErrorsComponent} from '../validation-errors/validation-errors.component';
+import {UserService} from '../core/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: UserService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -35,6 +35,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (user) => {
+          this.authService.loadQuota();
           this.router.navigate(['home']);
         },
         error: (err) => {

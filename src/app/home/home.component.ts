@@ -29,6 +29,8 @@ export class HomeComponent implements OnInit {
       this.currentPath = params['path'] || '';
       this.loadFiles();
     });
+    this.resourceService.onRefreshNeeded
+      .subscribe(() => this.loadFiles());
   }
 
   loadFiles(): void {

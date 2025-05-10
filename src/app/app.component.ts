@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {AuthService} from './core/services/auth.service';
+import {UserService} from './core/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import {AuthService} from './core/services/auth.service';
 export class AppComponent implements OnInit {
   title = 'filo-frontend';
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: UserService) {
   }
 
   ngOnInit(): void {

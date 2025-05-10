@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {finalize, Observable, Subject} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Resource} from '../models/resource';
 import {map} from 'rxjs/operators';
@@ -12,8 +12,17 @@ import {saveAs} from 'file-saver';
 export class ResourceService {
 
   private apiUrl = API_URLS.RESOURCE;
+  private refreshNeeded$ = new Subject<void>();
 
   constructor(private http: HttpClient) {
+  }
+
+  get onRefreshNeeded(): Observable<void> {
+    return this.refreshNeeded$.asObservable();
+  }
+
+  public notifyRefreshNeeded(): void {
+    this.refreshNeeded$.next();
   }
 
   getResources(path: string): Observable<Resource[]> {
@@ -32,7 +41,8 @@ export class ResourceService {
     const formData = new FormData();
     files.forEach(file => formData.append('files', file));
     const params = new HttpParams().set('path', path);
-    return this.http.post<Resource[]>(this.apiUrl, formData, {params: params});
+    return this.http.post<Resource[]>(this.apiUrl, formData, {params: params}).pipe(
+      finalize(() => this.notifyRefreshNeeded()));
   }
 
   downloadResource(path: string): void {
@@ -71,13 +81,15 @@ export class ResourceService {
     });
   }
 
-  deleteResource(path: string): void {
+  deleteResource(path: string): Observable<void> {
     let param = new HttpParams().set("path", path);
-    this.http.delete(this.apiUrl, {params: param}).subscribe();
+    return this.http.delete<void>(this.apiUrl, {params: param}).pipe(
+      finalize(() => this.notifyRefreshNeeded()));
   }
 
-  move(from: string, to: string): void {
+  move(from: string, to: string): Observable<void> {
     let param = new HttpParams().set("from", from).set("to", to);
-    this.http.get(this.apiUrl + "/move", {params: param}).subscribe();
+    return this.http.get<void>(this.apiUrl + "/move", {params: param}).pipe(
+      finalize(() => this.notifyRefreshNeeded()));
   }
 }

@@ -35,20 +35,26 @@
 
 <app-modal *ngIf="isMoveResourceOpen" (close)="closeModal()" title="Move {{this.file.name}}">
   <div class="current-location">
-    <span>Current location: {{ this.file.path | parentPath }}</span>
+        <span>
+      Current location:
+          {{ (file.path | parentPath) || '/' }}
+    </span>
   </div>
   <div class="folder-list">
     <ul>
       <li *ngFor="let folder of availableFolders" (click)="selectFolder(folder)"
           [class.selected]="folder.path === selectedFolderPath">
         <i class="fa-regular fa-folder fa-lg"></i>
-        <span>{{ folder.path }}</span>
+        <span>{{ folder.path || '/' }}</span>
       </li>
+      <p *ngIf="availableFolders.length ===0" class="fa-regular">
+        you don't have any valid folder :(
+      </p>
     </ul>
   </div>
 
   <div class="modal-button">
     <button class="cancel-button" (click)="closeModal()">Cancel</button>
-    <button class="move-button" (click)="confirmMove()" [disabled]="!selectedFolderPath">Move</button>
+    <button class="move-button" (click)="confirmMove()" [disabled]="selectedFolderPath ===null">Move</button>
   </div>
 </app-modal>

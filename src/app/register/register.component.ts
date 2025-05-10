@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../core/services/auth.service';
 import {Router, RouterLink} from '@angular/router';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {passwordMatchValidator} from '../core/validators/password-match.validator';
 import {ValidationErrorsComponent} from '../validation-errors/validation-errors.component';
 import {NotificationService} from '../core/services/notification.service';
+import {UserService} from '../core/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +25,7 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: UserService,
     private router: Router,
     private notifyService: NotificationService
   ) {

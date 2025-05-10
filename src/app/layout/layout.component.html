@@ -1,7 +1,7 @@
 <div class="container">
   <header>
     <div class="left-section" (click)="goToHome()">
-      <img ngSrc="assets/images/filo-icon.ico" alt="Filo Icon" height="50" width="50">
+      <img ngSrc="assets/images/filo-icon.ico" alt="Filo Icon" height="50" width="50" priority>
       <h2>Filo</h2>
     </div>
     <div class="header-actions">
@@ -44,11 +44,17 @@
     </div>
 
 
-    <div class="storage-info">
+    <div class="storage-info" *ngIf="quota$ | async as quota">
       <div class="progress-bar">
-        <div class="progress" [style.width]="storageUsedPercent + '%'"></div>
+        <div class="progress"
+             [style.width]="(quota.usedBytes / quota.quotaBytes) * 100 + '%'">
+        </div>
       </div>
-      <p>{{ usedStorage }}MB of {{ totalStorage }}MB used</p>
+      <p>
+        {{ (quota.usedBytes | filesize) }}
+        of
+        {{ (quota.quotaBytes| filesize) }} used
+      </p>
     </div>
   </aside>
 
