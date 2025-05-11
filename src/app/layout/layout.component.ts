@@ -70,7 +70,9 @@ export class LayoutComponent {
 
   search() {
     if (this.searchQuery.trim()) {
-      this.router.navigate(["/search"], {queryParams: {q: this.searchQuery}});
+      this.router.navigate(["/search"], {queryParams: {query: this.searchQuery}});
+    }else {
+      this.notifyService.info("Please enter something");
     }
   }
 

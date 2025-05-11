@@ -4,6 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 import {ResourceService} from '../core/services/resource.service';
 import {Resource} from '../core/models/resource';
 import {FileItemComponent} from '../file-item/file-item.component';
+import {HttpErrorResponse} from '@angular/common/http';
+import {NotificationService} from '../core/services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private resourceService: ResourceService,
+    private notifyService: NotificationService,
     private route: ActivatedRoute
   ) {
   }
@@ -34,8 +37,21 @@ export class HomeComponent implements OnInit {
   }
 
   loadFiles(): void {
-    this.resourceService.getResources(this.currentPath).subscribe(files => {
-      this.files = files;
-    });
+    this.resourceService.getResources(this.currentPath).subscribe({
+        next: (files: Resource[]) => {
+          this.files = files;
+        },
+      error: (err: HttpErrorResponse) =>{
+          switch (err.status){
+            case 400:
+              this.notifyService.error("Please write valid path that exist!");
+              break;
+            default:
+              this.notifyService.error("Something went wrong, please try again later!");
+              break;
+          }
+      }
+      }
+    );
   }
 }

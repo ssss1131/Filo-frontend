@@ -92,4 +92,9 @@ export class ResourceService {
     return this.http.get<void>(this.apiUrl + "/move", {params: param}).pipe(
       finalize(() => this.notifyRefreshNeeded()));
   }
+
+  search(query: string):Observable<Resource[]> {
+      const param = new HttpParams().set("query", query);
+      return this.http.get<Resource[]>(this.apiUrl + "/search", {params:param});
+  }
 }
