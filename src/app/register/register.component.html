@@ -1,34 +1,34 @@
 <div class="wrapper">
   <div class="head">
     <h1 class="filo-title">
-      <span>Filo</span>
+      <span>{{ 'APP.TITLE' | translate }}</span>
       <img ngSrc="assets/images/filo-icon.png" width="80" height="80" alt="filo-icon">
     </h1>
   </div>
   <div class="register-container">
-    <h1>Register</h1>
+    <h1>{{ 'AUTH.REGISTER.TITLE' | translate }}</h1>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
-        <label for="username">Username</label>
+        <label for="username">{{ 'AUTH.REGISTER.USERNAME' | translate }}</label>
         <input id="username" type="text" formControlName="username">
-        <app-validation-errors [control]="registerForm.get('username')" fieldName="Username"></app-validation-errors>
+        <app-validation-errors [control]="registerForm.get('username')" [fieldName]="'AUTH.REGISTER.USERNAME' | translate"></app-validation-errors>
       </div>
       <div>
-        <label for="password">Password</label>
+        <label for="password">{{ 'AUTH.REGISTER.PASSWORD' | translate }}</label>
         <input id="password" type="password" formControlName="password">
-        <app-validation-errors [control]="registerForm.get('password')" fieldName="Password"></app-validation-errors>
+        <app-validation-errors [control]="registerForm.get('password')" [fieldName]="'AUTH.REGISTER.PASSWORD' | translate"></app-validation-errors>
       </div>
       <div>
-        <label for="confirmPassword">Confirm Password</label>
+        <label for="confirmPassword">{{ 'AUTH.REGISTER.CONFIRM_PASSWORD' | translate }}</label>
         <input id="confirmPassword" type="password" formControlName="confirmPassword">
         <app-validation-errors [control]="registerForm.get('confirmPassword')"
-                               fieldName="Confirm Password"></app-validation-errors>
+                               [fieldName]="'AUTH.REGISTER.CONFIRM_PASSWORD' | translate"></app-validation-errors>
       </div>
       <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
-        <small>Passwords do not match.</small>
+        <small>{{ 'AUTH.REGISTER.PASSWORD_MISMATCH' | translate }}</small>
       </div>
-      <button type="submit" [disabled]="registerForm.invalid" class="register-button">Register</button>
+      <button type="submit" [disabled]="registerForm.invalid" class="register-button">{{ 'AUTH.REGISTER.REGISTER_BUTTON' | translate }}</button>
     </form>
-    <p class="login-link">Already have account? <a routerLink="/auth/login">Login here</a></p>
+    <p class="login-link">{{ 'AUTH.REGISTER.ALREADY_HAVE_ACCOUNT' | translate }} <a routerLink="/auth/login">{{ 'AUTH.REGISTER.LOGIN_HERE' | translate }}</a></p>
   </div>
 </div>

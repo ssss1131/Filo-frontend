@@ -1,12 +1,12 @@
 <div class="not-found-container">
   <div class="message-wrapper">
-    <h1 class="title">404</h1>
-    <p class="subtitle">Page Not Found</p>
+    <h1 class="title">{{ 'NOT_FOUND.TITLE' | translate }}</h1>
+    <p class="subtitle">{{ 'NOT_FOUND.SUBTITLE' | translate }}</p>
     <p class="description">
-      Oops! The page you’re looking for doesn’t exist or has been moved.
+      {{ 'NOT_FOUND.DESCRIPTION' | translate }}
     </p>
     <button class="home-button" (click)="goHome()">
-      Go to Home
+      {{ 'NOT_FOUND.GO_HOME' | translate }}
     </button>
   </div>
 </div>

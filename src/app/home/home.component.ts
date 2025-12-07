@@ -6,13 +6,15 @@ import {Resource} from '../core/models/resource';
 import {FileItemComponent} from '../file-item/file-item.component';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NotificationService} from '../core/services/notification.service';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   imports: [
     FileItemComponent,
-    CommonModule
+    CommonModule,
+    TranslateModule
   ],
   styleUrl: './home.component.css'
 })

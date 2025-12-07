@@ -1,0 +1,62 @@
+{
+  "APP": {
+    "TITLE": "Filo",
+    "TAGLINE": "Explore a cloud of endless moments"
+  },
+  "AUTH": {
+    "LOGIN": {
+      "TITLE": "Log In",
+      "EMAIL_OR_USERNAME": "Email or username",
+      "PASSWORD": "Password",
+      "LOGIN_BUTTON": "Log In",
+      "CREATE_ACCOUNT": "Create new account"
+    },
+    "REGISTER": {
+      "TITLE": "Register",
+      "USERNAME": "Username",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "REGISTER_BUTTON": "Register",
+      "ALREADY_HAVE_ACCOUNT": "Already have account?",
+      "LOGIN_HERE": "Login here",
+      "PASSWORD_MISMATCH": "Passwords do not match."
+    },
+    "LOGOUT": "Logout"
+  },
+  "NAV": {
+    "SEARCH_PLACEHOLDER": "Search your files",
+    "NEW": "New",
+    "NEW_FOLDER": "New Folder",
+    "FILE_UPLOAD": "File Upload",
+    "FOLDER_UPLOAD": "Folder Upload"
+  },
+  "FILES": {
+    "MY_FILES": "My Files",
+    "NAME": "Name",
+    "LAST_MODIFIED": "Last Modified",
+    "SIZE": "Size",
+    "NO_FILES_TITLE": "This space is feeling a bit lonely 😢",
+    "NO_FILES_SUBTITLE": "Give it some company by uploading your files!"
+  },
+  "MODAL": {
+    "NEW_FOLDER": "New Folder",
+    "FOLDER_NAME": "Folder name",
+    "CANCEL": "Cancel",
+    "CREATE": "Create"
+  },
+  "STORAGE": {
+    "USED": "of",
+    "USED_LABEL": "used"
+  },
+  "VALIDATION": {
+    "REQUIRED": "{{field}} is required.",
+    "MIN_LENGTH": "{{field}} must be at least {{length}} characters.",
+    "MAX_LENGTH": "{{field}} cannot exceed {{length}} characters."
+  },
+  "NOT_FOUND": {
+    "TITLE": "404",
+    "SUBTITLE": "Page Not Found",
+    "DESCRIPTION": "Oops! The page you're looking for doesn't exist or has been moved.",
+    "GO_HOME": "Go to Home"
+  }
+}

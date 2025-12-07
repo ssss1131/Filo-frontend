@@ -14,12 +14,14 @@ import {UserService} from '../core/services/user.service';
 import {UserQuota} from '../core/models/user-quota';
 import {map} from 'rxjs/operators';
 import {FileSizePipe} from '../shared/pipes/file-size.pipe';
+import {TranslateModule} from '@ngx-translate/core';
+import {LanguageService} from '../core/services/language.service';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
-  imports: [FormsModule, RouterOutlet, AsyncPipe, CommonModule, ClickOutsideDirective, ModalComponent, NgOptimizedImage, FileSizePipe]
+  imports: [FormsModule, RouterOutlet, AsyncPipe, CommonModule, ClickOutsideDirective, ModalComponent, NgOptimizedImage, FileSizePipe, TranslateModule]
 })
 export class LayoutComponent {
 
@@ -40,7 +42,8 @@ export class LayoutComponent {
     private userService: UserService,
     private resourceService: ResourceService,
     private directoryService: DirectoryService,
-    private notifyService: NotificationService
+    private notifyService: NotificationService,
+    public languageService: LanguageService
   ) {
     this.userService.loadQuota();
     this.user$ = this.userService.user$;
@@ -187,6 +190,10 @@ export class LayoutComponent {
 
   closeModal() {
     this.isCreateFolderOpen = false;
+  }
+
+  switchLanguage(lang: string) {
+    this.languageService.setLanguage(lang);
   }
 
 }

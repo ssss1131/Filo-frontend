@@ -11,13 +11,23 @@
           type="text"
           [(ngModel)]="searchQuery"
           (keyup.enter)="search()"
-          placeholder="Search your files"
+          [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate"
           class="search-bar">
       </div>
 
       <div class="right-section" *ngIf="user$ | async as user">
+        <div class="language-switcher">
+          <button
+            [class.active]="languageService.getCurrentLanguage() === 'en'"
+            (click)="switchLanguage('en')"
+            class="lang-btn">EN</button>
+          <button
+            [class.active]="languageService.getCurrentLanguage() === 'ru'"
+            (click)="switchLanguage('ru')"
+            class="lang-btn">RU</button>
+        </div>
         <strong>{{ user.username }}</strong>
-        <button class="logout-button" (click)="logout()">Logout</button>
+        <button class="logout-button" (click)="logout()">{{ 'AUTH.LOGOUT' | translate }}</button>
       </div>
     </div>
   </header>
@@ -25,18 +35,18 @@
   <aside class="sidebar">
     <button class="new-button" (click)="toggleNewMenu()">
       <i class="fa-solid fa-plus fa-xl"></i>
-      <span class="new-text"> New</span>
+      <span class="new-text"> {{ 'NAV.NEW' | translate }}</span>
     </button>
 
 
     <div class="new-menu-wrapper">
       <div class="new-menu" *ngIf="isNewMenuOpen" (clickOutside)="closeMenu()">
-        <button (click)="clickCreateFolder()"><i class="fa-regular fa-folder fa-lg" style="color: #74C0FC;"></i> New Folder
+        <button (click)="clickCreateFolder()"><i class="fa-regular fa-folder fa-lg" style="color: #74C0FC;"></i> {{ 'NAV.NEW_FOLDER' | translate }}
         </button>
         <div class="line"></div>
-        <button (click)="clickUploadFile()"><i class="fa-regular fa-file fa-lg" style="color: #63E6BE;"></i> File Upload
+        <button (click)="clickUploadFile()"><i class="fa-regular fa-file fa-lg" style="color: #63E6BE;"></i> {{ 'NAV.FILE_UPLOAD' | translate }}
         </button>
-        <button (click)="clickUploadFolder()"><i class="fa-regular fa-folder fa-lg" style="color: #63E6BE;"></i> Folder Upload
+        <button (click)="clickUploadFolder()"><i class="fa-regular fa-folder fa-lg" style="color: #63E6BE;"></i> {{ 'NAV.FOLDER_UPLOAD' | translate }}
         </button>
       </div>
       <input #fileInput type="file" hidden multiple (change)="onFilesSelected($event)">
@@ -52,8 +62,8 @@
       </div>
       <p>
         {{ (quota.usedBytes | filesize) }}
-        of
-        {{ (quota.quotaBytes| filesize) }} used
+        {{ 'STORAGE.USED' | translate }}
+        {{ (quota.quotaBytes| filesize) }} {{ 'STORAGE.USED_LABEL' | translate }}
       </p>
     </div>
   </aside>
@@ -64,10 +74,10 @@
 </div>
 
 
-<app-modal *ngIf="isCreateFolderOpen" (close)="closeModal()" title="New Folder">
-  <input #folderInput type="text" placeholder="Folder name" class="modal-input">
+<app-modal *ngIf="isCreateFolderOpen" (close)="closeModal()" [title]="'MODAL.NEW_FOLDER' | translate">
+  <input #folderInput type="text" [placeholder]="'MODAL.FOLDER_NAME' | translate" class="modal-input">
   <div class="modal-button">
-    <button class="cancel-button" (click)="closeModal()">Cancel</button>
-    <button (click)="handleCreateFolder(folderInput.value)">Create</button>
+    <button class="cancel-button" (click)="closeModal()">{{ 'MODAL.CANCEL' | translate }}</button>
+    <button (click)="handleCreateFolder(folderInput.value)">{{ 'MODAL.CREATE' | translate }}</button>
   </div>
 </app-modal>

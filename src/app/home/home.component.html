@@ -1,12 +1,12 @@
 <div class="container">
-  <h1 class="title">My Files</h1>
+  <h1 class="title">{{ 'FILES.MY_FILES' | translate }}</h1>
 
   <ng-container *ngIf="files && files.length > 0; else noFiles">
     <div class="file-list">
       <div class="file-list-header">
-        <span class="col-name">Name</span>
-        <span class="col-modified">Last Modified</span>
-        <span class="col-size">Size</span>
+        <span class="col-name">{{ 'FILES.NAME' | translate }}</span>
+        <span class="col-modified">{{ 'FILES.LAST_MODIFIED' | translate }}</span>
+        <span class="col-size">{{ 'FILES.SIZE' | translate }}</span>
         <span class="col-actions"></span>
       </div>
 
@@ -16,8 +16,8 @@
 
   <ng-template #noFiles>
     <div class="no-files-message">
-      <p>This space is feeling a bit lonely 😢</p>
-      <p>Give it some company by uploading your files!</p>
+      <p>{{ 'FILES.NO_FILES_TITLE' | translate }}</p>
+      <p>{{ 'FILES.NO_FILES_SUBTITLE' | translate }}</p>
     </div>
   </ng-template>
 

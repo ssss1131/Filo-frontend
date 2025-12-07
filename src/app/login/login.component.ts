@@ -4,6 +4,7 @@ import {Router, RouterLink} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ValidationErrorsComponent} from '../validation-errors/validation-errors.component';
 import {UserService} from '../core/services/user.service';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ import {UserService} from '../core/services/user.service';
     ReactiveFormsModule,
     CommonModule,
     RouterLink,
-    ValidationErrorsComponent
+    ValidationErrorsComponent,
+    TranslateModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {UserService} from './core/services/user.service';
+import {LanguageService} from './core/services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,10 @@ import {UserService} from './core/services/user.service';
 export class AppComponent implements OnInit {
   title = 'filo-frontend';
 
-  constructor(private authService: UserService) {
+  constructor(
+    private authService: UserService,
+    private languageService: LanguageService
+  ) {
   }
 
   ngOnInit(): void {

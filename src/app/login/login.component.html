@@ -1,20 +1,20 @@
 <div class="container">
   <div class="left-section">
-    <h1>Filo</h1>
-    <p class="under-icon-info"> Explore a cloud of endless moments</p>
+    <h1>{{ 'APP.TITLE' | translate }}</h1>
+    <p class="under-icon-info">{{ 'APP.TAGLINE' | translate }}</p>
   </div>
   <div class="right-section">
     <div class="login-container">
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <input type="text" placeholder="Email or username" formControlName="username">
+        <input type="text" [placeholder]="'AUTH.LOGIN.EMAIL_OR_USERNAME' | translate" formControlName="username">
         <app-validation-errors [control]="loginForm.get('username')" fieldName="username"></app-validation-errors>
-        <input type="password" placeholder="Password" formControlName="password">
+        <input type="password" [placeholder]="'AUTH.LOGIN.PASSWORD' | translate" formControlName="password">
         <app-validation-errors [control]="loginForm.get('password')" fieldName="password"></app-validation-errors>
-        <button class="login-button" [disabled]="loginForm.invalid" type="submit">Log In</button>
+        <button class="login-button" [disabled]="loginForm.invalid" type="submit">{{ 'AUTH.LOGIN.LOGIN_BUTTON' | translate }}</button>
       </form>
       <div class="line"></div>
-      <a role="button" class="account-button" routerLink="/auth/register">Create new account</a>
+      <a role="button" class="account-button" routerLink="/auth/register">{{ 'AUTH.LOGIN.CREATE_ACCOUNT' | translate }}</a>
     </div>
   </div>
 </div>

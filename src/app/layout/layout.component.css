@@ -81,6 +81,37 @@ header {
   gap: 15px;
 }
 
+.language-switcher {
+  display: flex;
+  gap: 5px;
+  padding: 4px;
+  background-color: #E9EEF6;
+  border-radius: 8px;
+}
+
+.lang-btn {
+  padding: 6px 12px;
+  border: none;
+  background-color: transparent;
+  color: #666;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+  background-color: rgba(24, 119, 242, 0.1);
+  color: #1877f2;
+}
+
+.lang-btn.active {
+  background-color: #1877f2;
+  color: white;
+  box-shadow: 0 2px 4px rgba(24, 119, 242, 0.3);
+}
+
 .logout-button {
   padding: 8px 15px;
   border-radius: 5px;

@@ -6,6 +6,7 @@ import {passwordMatchValidator} from '../core/validators/password-match.validato
 import {ValidationErrorsComponent} from '../validation-errors/validation-errors.component';
 import {NotificationService} from '../core/services/notification.service';
 import {UserService} from '../core/services/user.service';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ import {UserService} from '../core/services/user.service';
     ReactiveFormsModule,
     RouterLink,
     ValidationErrorsComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    TranslateModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
