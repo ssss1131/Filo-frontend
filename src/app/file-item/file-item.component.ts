@@ -13,6 +13,7 @@ import {FOLDER_DELIMITER} from '../shared/constants/api-constants';
 import {FileSizePipe} from '../shared/pipes/file-size.pipe';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NotificationService} from '../core/services/notification.service';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-file-item',
@@ -23,7 +24,8 @@ import {NotificationService} from '../core/services/notification.service';
     ModalComponent,
     FormsModule,
     ParentPathPipe,
-    FileSizePipe
+    FileSizePipe,
+    TranslateModule
   ],
   styleUrls: ['./file-item.component.css']
 })

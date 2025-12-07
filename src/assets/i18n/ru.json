@@ -42,7 +42,18 @@
     "NEW_FOLDER": "Новая папка",
     "FOLDER_NAME": "Название папки",
     "CANCEL": "Отмена",
-    "CREATE": "Создать"
+    "CREATE": "Создать",
+    "RENAME": "Переименовать",
+    "MOVE": "Переместить",
+    "MOVE_TITLE": "Переместить {{name}}",
+    "CURRENT_LOCATION": "Текущее расположение:",
+    "NO_VALID_FOLDERS": "У вас нет доступных папок :("
+  },
+  "CONTEXT_MENU": {
+    "DOWNLOAD": "Скачать",
+    "MOVE": "Переместить",
+    "RENAME": "Переименовать",
+    "DELETE": "Удалить"
   },
   "STORAGE": {
     "USED": "из",

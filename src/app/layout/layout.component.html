@@ -60,11 +60,7 @@
              [style.width]="(quota.usedBytes / quota.quotaBytes) * 100 + '%'">
         </div>
       </div>
-      <p>
-        {{ (quota.usedBytes | filesize) }}
-        {{ 'STORAGE.USED' | translate }}
-        {{ (quota.quotaBytes| filesize) }} {{ 'STORAGE.USED_LABEL' | translate }}
-      </p>
+      <p>{{ (quota.usedBytes | filesize) }} {{ 'STORAGE.USED' | translate }} {{ (quota.quotaBytes | filesize) }} {{ 'STORAGE.USED_LABEL' | translate }}</p>
     </div>
   </aside>
 

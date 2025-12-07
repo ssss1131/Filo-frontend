@@ -200,6 +200,14 @@ header {
   color: #80809F;
 }
 
+.storage-info p {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 8px;
+}
+
 .progress-bar {
   width: 80%;
   height: 15px;
@@ -211,6 +219,7 @@ header {
 .progress {
   height: 100%;
   background: #1877f2;
+  border-radius: 5px;
 }
 
 .content-wrapper {

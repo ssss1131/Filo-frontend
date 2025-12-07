@@ -42,7 +42,18 @@
     "NEW_FOLDER": "New Folder",
     "FOLDER_NAME": "Folder name",
     "CANCEL": "Cancel",
-    "CREATE": "Create"
+    "CREATE": "Create",
+    "RENAME": "Rename",
+    "MOVE": "Move",
+    "MOVE_TITLE": "Move {{name}}",
+    "CURRENT_LOCATION": "Current location:",
+    "NO_VALID_FOLDERS": "You don't have any valid folder :("
+  },
+  "CONTEXT_MENU": {
+    "DOWNLOAD": "Download",
+    "MOVE": "Move",
+    "RENAME": "Rename",
+    "DELETE": "Delete"
   },
   "STORAGE": {
     "USED": "of",
