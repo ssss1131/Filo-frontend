@@ -7,6 +7,7 @@ import {ValidationErrorsComponent} from '../validation-errors/validation-errors.
 import {NotificationService} from '../core/services/notification.service';
 import {UserService} from '../core/services/user.service';
 import {TranslateModule} from '@ngx-translate/core';
+import {LanguageService} from '../core/services/language.service';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +30,8 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private authService: UserService,
     private router: Router,
-    private notifyService: NotificationService
+    private notifyService: NotificationService,
+    public languageService: LanguageService
   ) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -63,5 +65,9 @@ export class RegisterComponent {
         }
       });
     }
+  }
+
+  switchLanguage(lang: string): void {
+    this.languageService.setLanguage(lang);
   }
 }

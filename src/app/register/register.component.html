@@ -1,4 +1,15 @@
 <div class="wrapper">
+  <div class="language-switcher-corner">
+    <button
+      [class.active]="languageService.getCurrentLanguage() === 'en'"
+      (click)="switchLanguage('en')"
+      class="lang-btn">EN</button>
+    <button
+      [class.active]="languageService.getCurrentLanguage() === 'ru'"
+      (click)="switchLanguage('ru')"
+      class="lang-btn">RU</button>
+  </div>
+
   <div class="head">
     <h1 class="filo-title">
       <span>{{ 'APP.TITLE' | translate }}</span>

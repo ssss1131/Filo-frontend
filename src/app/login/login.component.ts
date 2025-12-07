@@ -5,6 +5,7 @@ import {CommonModule} from '@angular/common';
 import {ValidationErrorsComponent} from '../validation-errors/validation-errors.component';
 import {UserService} from '../core/services/user.service';
 import {TranslateModule} from '@ngx-translate/core';
+import {LanguageService} from '../core/services/language.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: UserService,
-    private router: Router
+    private router: Router,
+    public languageService: LanguageService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -51,5 +53,9 @@ export class LoginComponent {
         }
       });
     }
+  }
+
+  switchLanguage(lang: string): void {
+    this.languageService.setLanguage(lang);
   }
 }

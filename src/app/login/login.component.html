@@ -1,4 +1,15 @@
 <div class="container">
+  <div class="language-switcher-corner">
+    <button
+      [class.active]="languageService.getCurrentLanguage() === 'en'"
+      (click)="switchLanguage('en')"
+      class="lang-btn">EN</button>
+    <button
+      [class.active]="languageService.getCurrentLanguage() === 'ru'"
+      (click)="switchLanguage('ru')"
+      class="lang-btn">RU</button>
+  </div>
+
   <div class="left-section">
     <h1>{{ 'APP.TITLE' | translate }}</h1>
     <p class="under-icon-info">{{ 'APP.TAGLINE' | translate }}</p>

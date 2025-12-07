@@ -6,6 +6,7 @@ import { Observable }           from 'rxjs';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {FileItemComponent} from '../file-item/file-item.component';
 import {Resource} from '../core/models/resource';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search',
@@ -13,17 +14,18 @@ import {Resource} from '../core/models/resource';
     AsyncPipe,
     FileItemComponent,
     NgIf,
-    NgForOf
+    NgForOf,
+    TranslateModule
   ],
   template: `
-    <h2>Search results for “{{ query }}”</h2>
+    <h2>{{ 'SEARCH.TITLE' | translate: {query: query} }}</h2>
     <div *ngIf="results$ | async as results; else loading">
       <div *ngIf="results.length; else noResults">
         <app-file-item *ngFor="let f of results" [file]="f"></app-file-item>
       </div>
     </div>
-    <ng-template #loading>Loading…</ng-template>
-    <ng-template #noResults>No results found.</ng-template>
+    <ng-template #loading>{{ 'SEARCH.LOADING' | translate }}</ng-template>
+    <ng-template #noResults>{{ 'SEARCH.NO_RESULTS' | translate }}</ng-template>
   `
 })
 export class SearchComponent implements OnInit {
